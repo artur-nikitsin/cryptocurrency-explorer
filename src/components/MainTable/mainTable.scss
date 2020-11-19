@@ -1,0 +1,41 @@
+
+.tableContainer {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  .mainTable {
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 80%;
+
+
+    .coinLogo{
+      height: 2rem;
+    }
+    @mixin cell {
+      max-width: 10rem;
+      min-width: 2rem;
+      text-align: center;
+      vertical-align: middle;
+      height: 2rem;
+    }
+
+      & td {
+        @include cell;
+        border: 1px solid rgba(157, 157, 158, 1);
+      }
+
+      & th {
+        @include cell;
+        border: 1px solid rgba(157, 157, 158, 1);
+        background: #28a745;
+
+    }
+  }
+}
+
