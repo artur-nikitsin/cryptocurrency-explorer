@@ -1,10 +1,10 @@
 const axios = require('axios').default;
 
 
-export const getCoins = (page, currency) => {
+export const getCoins = ({page, vsCurrency, orderBy, resultPerPage}) => {
     return axios({
         method: 'get',
-        url: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
+        url: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${vsCurrency}&order=${orderBy}&per_page=${resultPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
         responseType: 'json'
     })
         .then(function (response) {
@@ -16,7 +16,7 @@ export const getCoins = (page, currency) => {
 }
 
 
-export const getCoinsList = (page) => {
+export const getCoinsList = () => {
     return axios({
         method: 'get',
         url: `https://api.coingecko.com/api/v3/coins/list`,

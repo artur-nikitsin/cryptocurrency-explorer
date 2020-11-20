@@ -13,10 +13,14 @@
     border: 1px solid black;
     width: 80%;
 
-
-    .coinLogo{
-      height: 2rem;
+    .nameWithLogo {
+      text-align: left;
+      .coinLogo{
+        height: 2rem;
+        margin-right: 0.5rem;
+      }
     }
+
     @mixin cell {
       max-width: 10rem;
       min-width: 2rem;

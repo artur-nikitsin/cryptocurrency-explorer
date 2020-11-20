@@ -1,72 +1,31 @@
 import React from 'react';
-import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
-import "./paginator.scss"
+import {makeStyles} from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+import Typography from '@material-ui/core/Typography';
 
-const Paginator = ({pagesNumber, activePage, handleChangeRange}) => {
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            marginTop: theme.spacing(2),
+        },
+    },
+}));
 
-    const handleClick = (e) => {
-        e.preventDefault()
-    }
+export default function PaginationButtons({pagesNumber, handleGoToPage}) {
 
-
-    const pageSpace = (page) => {
-        return (
-            <PaginationItem key={page}>
-                <PaginationLink href="#" onClick={handleClick}>
-                    ...
-                </PaginationLink>
-            </PaginationItem>
-        )
-    }
-
-    const pageWithNumber = (page) => {
-        return (
-            <PaginationItem key={page} onClick={handleChangeRange(page + 1)} active={activePage - 1 === page}>
-                <PaginationLink href="#" onClick={handleClick}>
-                    {page + 1}
-                </PaginationLink>
-            </PaginationItem>)
-
-    }
-
-
-    const generatePages = (number) => {
-        const arrWithPages = [...Array(number).keys()]
-
-         return arrWithPages.map((page) => {
-             /* if (page >= 5 && page < pagesNumber - 5) {
-                  return pageSpace(page)
-              }*/
-             return (
-                 <PaginationItem key={page} onClick={handleChangeRange(page + 1)} active={activePage - 1 === page}>
-                     <PaginationLink href="#" onClick={handleClick}>
-                         {page + 1}
-                     </PaginationLink>
-                 </PaginationItem>)
-         })
-    }
-
+    const classes = useStyles();
+    const [page, setPage] = React.useState(1);
+    const handleChange = (event, value) => {
+        setPage(value);
+        handleGoToPage(value)
+    };
 
     return (
-        <Pagination className="paginator" aria-label="Page navigation example">
-            <PaginationItem disabled={activePage === 1} onClick={handleChangeRange(1)}>
-                <PaginationLink first href="#"/>
-            </PaginationItem>
-
-            <PaginationItem disabled={activePage === 1} onClick={handleChangeRange(activePage - 1)}>
-                <PaginationLink previous href="#"/>
-            </PaginationItem>
-
-            {generatePages(pagesNumber)}
-
-            <PaginationItem disabled={activePage === pagesNumber} onClick={handleChangeRange(activePage + 1)}>
-                <PaginationLink next href="#"/>
-            </PaginationItem>
-            <PaginationItem disabled={activePage === pagesNumber} onClick={handleChangeRange(pagesNumber)}>
-                <PaginationLink last href="#"/>
-            </PaginationItem>
-        </Pagination>
+        <div className={classes.root}>
+            <Typography>Page: {page}</Typography>
+            <Pagination page={page} onChange={handleChange}
+                        count={pagesNumber} showFirstButton
+                        showLastButton variant="outlined" shape="rounded"/>
+        </div>
     );
 }
-
-export default Paginator;

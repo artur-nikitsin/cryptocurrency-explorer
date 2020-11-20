@@ -1,9 +1,9 @@
 import React from 'react';
-import {getCoins, getCoinsList, getCurrencyData} from "../api/getData";
+import {getCoins, getCoinsList} from "../api/getData";
 import {Table} from 'reactstrap';
 import "./mainTable.scss"
-import Paginator from "../Paginator/Paginator";
 import Preloader from "../Preloader/Preloader";
+import BasicPagination from "../Paginator/Paginator";
 
 class MainTable extends React.PureComponent {
 
@@ -11,30 +11,34 @@ class MainTable extends React.PureComponent {
         super(props);
         this.state = {
             loading: true,
-            currencyList: [],
-            currencyTableData: [],
-            currencyCount: 0,
+            coinList: [],
+            coinTableData: [],
             pagesNumber: 1,
-            activePage: 1
+            resultPerPage: 100,
+
+            activePage: 1,
+            vsCurrency: "usd",
+            orderBy: "market_cap_desc"
         }
     }
 
     componentDidMount() {
-        const {activePage} = this.state;
-        this.getDataByPage(activePage)
+        const {activePage, vsCurrency, orderBy, resultPerPage} = this.state;
+        this.getDataByPage({activePage, vsCurrency, orderBy, resultPerPage})
     }
 
 
-    getDataByPage = (page) => {
-        getCoins(page, "usd").then(async (data) => {
+    getDataByPage = ({page, vsCurrency, orderBy, resultPerPage}) => {
+
+        getCoins({page, vsCurrency, orderBy,resultPerPage}).then(async (data) => {
+
             await getCoinsList().then((list) => {
                 this.setState({
-                    currencyList: list,
-                    pagesNumber: Math.ceil(list.length / 100)
+                    pagesNumber: Math.ceil(list.length / resultPerPage)
                 })
             })
             this.setState({
-                currencyList: data,
+                coinList: data,
             })
 
             this.createTable(data)
@@ -42,12 +46,13 @@ class MainTable extends React.PureComponent {
     }
 
 
-    handleChangeRange = (nextPage) => () => {
+    handleGoToPage = (nextPage) => {
+        const {vsCurrency, orderBy, resultPerPage} = this.state;
         this.setState({
             loading: true,
             activePage: nextPage
         })
-        this.getDataByPage(nextPage)
+        this.getDataByPage({nextPage, vsCurrency, orderBy, resultPerPage})
     }
 
 
@@ -68,17 +73,18 @@ class MainTable extends React.PureComponent {
 
 
     createTable = (data) => {
-        const currencyTableData = data.map((item, i) => {
+        const coinTableData = data.map((item, i) => {
             const {
                 id, image, current_price, name,
                 price_change_percentage_1h_in_currency,
                 price_change_percentage_24h_in_currency,
                 price_change_percentage_7d_in_currency
             } = item
+            const {activePage, resultPerPage} = this.state;
             return (
                 <tr key={id}>
-                    <td>{i + 1}</td>
-                    <td><img className='coinLogo' src={image} alt=""/>{name}</td>
+                    <td>{activePage === 1 ? activePage + i : (activePage - 1) * resultPerPage + i + 1}</td>
+                    <td className='nameWithLogo'><img className='coinLogo' src={image} alt=""/>{name}</td>
                     <td>{current_price || '$0.00'}</td>
                     <td>{price_change_percentage_1h_in_currency || '?'}</td>
                     <td>{price_change_percentage_24h_in_currency || '?'}</td>
@@ -87,26 +93,27 @@ class MainTable extends React.PureComponent {
             )
         })
         this.setState({
-            currencyTableData,
+            coinTableData,
             loading: false
         })
     }
 
 
     render() {
-        const {loading, currencyTableData, activePage, pagesNumber} = this.state
+        const {loading, coinTableData, activePage, pagesNumber, currencyList} = this.state
         return (
             <div className='tableContainer'>
                 {loading ? <Preloader/> :
                     <Table striped className='mainTable'>
                         {this.headers()}
                         <tbody>
-                        {currencyTableData}
+                        {coinTableData}
                         </tbody>
                     </Table>}
 
-                <Paginator activePage={activePage} pagesNumber={pagesNumber}
-                           handleChangeRange={this.handleChangeRange}/>
+                <BasicPagination activePage={activePage} pagesNumber={pagesNumber}
+                                 handleGoToPage={this.handleGoToPage}
+                                 currencyList={currencyList}/>
             </div>
         )
     }
