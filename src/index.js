@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import WidgetConnect from "./WidgetConnect/WidgetConnect";
+import {BrowserRouter} from 'react-router-dom';
 
 WidgetConnect();
 
 ReactDOM.render(
     <React.StrictMode>
-        <App/>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );

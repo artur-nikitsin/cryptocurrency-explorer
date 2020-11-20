@@ -8,6 +8,8 @@ import getToFixedNumber from "../../helpers/getToFixedNumber";
 import returnColorClassName from "../../helpers/returnColorClassName";
 import TableHeader from "../TableHeaders/TableHeaders";
 import {mainCoinsTableHeaders} from "../FormatTemplates/tableHeaders";
+import {NavLink} from 'react-router-dom';
+
 
 class MainTable extends React.PureComponent {
 
@@ -74,7 +76,10 @@ class MainTable extends React.PureComponent {
             return (
                 <tr key={id} onClick={() => getCoinData(id)}>
                     <td>{activePage === 1 ? activePage + i : (activePage - 1) * resultPerPage + i + 1}</td>
-                    <td className='nameWithLogo'><img className='coinLogo' src={image} alt=""/>{name}</td>
+                    <td className='nameWithLogo'>
+                        <img className='coinLogo' src={image} alt=""/>
+                        <NavLink to={`/coins/${id}`}>{name}</NavLink>
+                    </td>
                     <td>{current_price || '$0.00'}</td>
                     <td className={`${returnColorClassName(short1h)} collapsed`}>{short1h}</td>
                     <td className={`${returnColorClassName(short24h)} collapsed`}>{short24h}</td>
@@ -83,9 +88,9 @@ class MainTable extends React.PureComponent {
                     <td className='minRow'>
                         <ul className='tableInfo'>
                             <li className={`${returnColorClassName(short1h)}`}>{`1h: ${short1h}`}</li>
-                            <hr />
+                            <hr/>
                             <li className={`${returnColorClassName(short24h)}`}>{`24h: ${short24h}`}</li>
-                            <hr />
+                            <hr/>
                             <li className={`${returnColorClassName(short7d)}`}>{`7d: ${short7d}`}</li>
                         </ul>
                     </td>
