@@ -1,6 +1,8 @@
 import React from 'react';
-import { getCoins, getCoinsList, getCoinData } from '../api/getData';
 import { Table } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getCoins, getCoinsList, getCoinData } from '../api/getData';
 import './mainTable.scss';
 import Preloader from '../Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
@@ -8,14 +10,14 @@ import getToFixedNumber from '../../helpers/getToFixedNumber';
 import returnColorClassName from '../../helpers/returnColorClassName';
 import TableHeader from '../TableHeaders/TableHeaders';
 import { mainCoinsTableHeaders } from '../FormatTemplates/tableHeaders';
-import { NavLink } from 'react-router-dom';
+import { getAllCoins } from '../../redux/reducers/coinsReducer';
 
 class MainTable extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      coinList: [],
+      coinsList: [],
       coinTableData: [],
       pagesNumber: 1,
       resultPerPage: 100,
@@ -27,6 +29,9 @@ class MainTable extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { getAllCoins } = this.props;
+    getAllCoins();
+
     const { activePage, vsCurrency, orderBy, resultPerPage } = this.state;
     this.getDataByPage({ activePage, vsCurrency, orderBy, resultPerPage });
   }
@@ -39,7 +44,7 @@ class MainTable extends React.PureComponent {
         });
       });
       this.setState({
-        coinList: data,
+        coinsList: data,
       });
       this.createTable(data);
     });
@@ -125,4 +130,11 @@ class MainTable extends React.PureComponent {
   }
 }
 
-export default MainTable;
+const mapStateToProps = (state) => {
+  const { loading } = state.coins;
+  return {
+    loading,
+  };
+};
+
+export default connect(mapStateToProps, { getAllCoins })(MainTable);
