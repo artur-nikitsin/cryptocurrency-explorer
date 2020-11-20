@@ -10,8 +10,8 @@
 
   .mainTable {
     border-collapse: collapse;
-    border: 1px solid black;
     width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
     .nameWithLogo {
       text-align: left;
@@ -40,12 +40,12 @@
 
     & td {
       @include cell;
-      border: 1px solid rgba(157, 157, 158, 1);
+    /*  border: 1px solid rgba(157, 157, 158, 1);*/
     }
 
     & th {
       @include cell;
-      border: 1px solid rgba(157, 157, 158, 1);
+     /* border: 1px solid rgba(157, 157, 158, 1);*/
       background: #28a745;
 
     }
