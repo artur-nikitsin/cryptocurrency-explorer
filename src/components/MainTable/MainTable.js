@@ -1,11 +1,12 @@
 import React from 'react';
-import {getCoins, getCoinsList} from "../api/getData";
+import {getCoins, getCoinsList, getCoinData} from "../api/getData";
 import {Table} from 'reactstrap';
 import "./mainTable.scss"
 import Preloader from "../Preloader/Preloader";
 import BasicPagination from "../Paginator/Paginator";
 import getToFixedNumber from "../../helpers/getToFixedNumber";
 import returnColorClassName from "../../helpers/returnColorClassName";
+import WidgetConnect from "../../WidgetConnect/WidgetConnect";
 
 class MainTable extends React.PureComponent {
 
@@ -89,7 +90,7 @@ class MainTable extends React.PureComponent {
 
             const {activePage, resultPerPage} = this.state;
             return (
-                <tr key={id}>
+                <tr key={id} onClick={() => getCoinData(id)}>
                     <td>{activePage === 1 ? activePage + i : (activePage - 1) * resultPerPage + i + 1}</td>
                     <td className='nameWithLogo'><img className='coinLogo' src={image} alt=""/>{name}</td>
                     <td>{current_price || '$0.00'}</td>
@@ -107,8 +108,8 @@ class MainTable extends React.PureComponent {
 
 
     render() {
+
         const {loading, coinTableData, activePage, pagesNumber, currencyList} = this.state
-        console.log(this.state)
         return (
             <div className='tableContainer'>
                 {loading ? <Preloader/> :
