@@ -2,6 +2,7 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
+import "./paginator.scss"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,7 +23,7 @@ export default function PaginationButtons({pagesNumber, handleGoToPage}) {
 
     return (
         <div className={classes.root}>
-            <Typography>Page: {page}</Typography>
+            <Typography>Page: {page} of {pagesNumber}</Typography>
             <Pagination page={page} onChange={handleChange}
                         count={pagesNumber} showFirstButton
                         showLastButton variant="outlined" shape="rounded"/>

@@ -4,7 +4,7 @@ const axios = require('axios').default;
 export const getCoins = ({page, vsCurrency, orderBy, resultPerPage}) => {
     return axios({
         method: 'get',
-        url: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${vsCurrency}&order=${orderBy}&per_page=${resultPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
+        url: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${vsCurrency}&order=${orderBy}&per_page=${resultPerPage}&page=${page}&sparkline=false&price_change_percentage=1h%2C24h%2C7d`,
         responseType: 'json'
     })
         .then(function (response) {
@@ -30,14 +30,30 @@ export const getCoinsList = () => {
         });
 }
 
-export const getCurrencyData = (id) => {
+
+export const getCoinData = (id) => {
     return axios({
         method: 'get',
-        url: `https://api.coingecko.com/api/v3/coins/`,
+        url: `https://api.coingecko.com/api/v3/coins/${id}`,
         responseType: 'json'
     })
         .then(function (response) {
-            /*console.log(response.data)*/
+            console.log(response.data)
+            return response.data
+        })
+        .catch(error => {
+            console.log("error", error)
+        });
+}
+
+
+export const getVsCurrencies = (id) => {
+    return axios({
+        method: 'get',
+        url: `https://api.coingecko.com/api/v3/simple/supported_vs_currencies`,
+        responseType: 'json'
+    })
+        .then(function (response) {
             if (response.status === 200) {
                 return response.data
             }
@@ -46,3 +62,4 @@ export const getCurrencyData = (id) => {
             console.log("error", error)
         });
 }
+

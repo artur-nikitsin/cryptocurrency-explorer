@@ -4,6 +4,8 @@ import {Table} from 'reactstrap';
 import "./mainTable.scss"
 import Preloader from "../Preloader/Preloader";
 import BasicPagination from "../Paginator/Paginator";
+import getToFixedNumber from "../../helpers/getToFixedNumber";
+import returnColorClassName from "../../helpers/returnColorClassName";
 
 class MainTable extends React.PureComponent {
 
@@ -30,7 +32,7 @@ class MainTable extends React.PureComponent {
 
     getDataByPage = ({page, vsCurrency, orderBy, resultPerPage}) => {
 
-        getCoins({page, vsCurrency, orderBy,resultPerPage}).then(async (data) => {
+        getCoins({page, vsCurrency, orderBy, resultPerPage}).then(async (data) => {
 
             await getCoinsList().then((list) => {
                 this.setState({
@@ -52,7 +54,7 @@ class MainTable extends React.PureComponent {
             loading: true,
             activePage: nextPage
         })
-        this.getDataByPage({nextPage, vsCurrency, orderBy, resultPerPage})
+        this.getDataByPage({page: nextPage, vsCurrency, orderBy, resultPerPage})
     }
 
 
@@ -79,16 +81,21 @@ class MainTable extends React.PureComponent {
                 price_change_percentage_1h_in_currency,
                 price_change_percentage_24h_in_currency,
                 price_change_percentage_7d_in_currency
-            } = item
+            } = item;
+
+            const short1h = getToFixedNumber(price_change_percentage_1h_in_currency, 1)
+            const short24h = getToFixedNumber(price_change_percentage_24h_in_currency, 1)
+            const short7d = getToFixedNumber(price_change_percentage_7d_in_currency, 1)
+
             const {activePage, resultPerPage} = this.state;
             return (
                 <tr key={id}>
                     <td>{activePage === 1 ? activePage + i : (activePage - 1) * resultPerPage + i + 1}</td>
                     <td className='nameWithLogo'><img className='coinLogo' src={image} alt=""/>{name}</td>
                     <td>{current_price || '$0.00'}</td>
-                    <td>{price_change_percentage_1h_in_currency || '?'}</td>
-                    <td>{price_change_percentage_24h_in_currency || '?'}</td>
-                    <td>{price_change_percentage_7d_in_currency || '?'}</td>
+                    <td className={returnColorClassName(short1h)}>{short1h}</td>
+                    <td className={returnColorClassName(short24h)}>{short24h}</td>
+                    <td className={returnColorClassName(short7d)}>{short7d}</td>
                 </tr>
             )
         })
@@ -101,6 +108,7 @@ class MainTable extends React.PureComponent {
 
     render() {
         const {loading, coinTableData, activePage, pagesNumber, currencyList} = this.state
+        console.log(this.state)
         return (
             <div className='tableContainer'>
                 {loading ? <Preloader/> :
