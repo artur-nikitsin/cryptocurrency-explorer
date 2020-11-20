@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PaginationButtons({pagesNumber, handleGoToPage}) {
+export default function Paginator({pagesNumber, handleGoToPage}) {
 
     const classes = useStyles();
     const [page, setPage] = React.useState(1);

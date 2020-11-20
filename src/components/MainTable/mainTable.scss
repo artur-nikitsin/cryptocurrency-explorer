@@ -1,3 +1,4 @@
+@import "src/components/common/Mixins/tableStyles";
 
 .tableContainer {
   min-height: 80vh;
@@ -9,25 +10,14 @@
   margin-bottom: 2rem;
 
   .mainTable {
-    border-collapse: collapse;
-    width: 80%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    @include commonTableStyles;
 
     .nameWithLogo {
       text-align: left;
-
       .coinLogo {
         height: 2rem;
         margin-right: 0.5rem;
       }
-    }
-
-    @mixin cell {
-      max-width: 10rem;
-      min-width: 2rem;
-      text-align: center;
-      vertical-align: middle;
-      height: 2rem;
     }
 
     .green {
@@ -38,17 +28,6 @@
       color: red;
     }
 
-    & td {
-      @include cell;
-    /*  border: 1px solid rgba(157, 157, 158, 1);*/
-    }
-
-    & th {
-      @include cell;
-     /* border: 1px solid rgba(157, 157, 158, 1);*/
-      background: #28a745;
-
-    }
   }
 }
 

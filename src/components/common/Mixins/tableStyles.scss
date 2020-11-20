@@ -1,0 +1,53 @@
+@mixin table {
+  width: 80vw;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+@mixin cell {
+  max-width: 10rem;
+  min-width: 2rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+@mixin collapsedHide {
+  & td {
+    @include cell;
+    border: 1px solid rgba(157, 157, 158, 1);
+  }
+
+  & th {
+    @include cell;
+    border: 1px solid #28a745;
+    background: #28a745;
+  }
+}
+
+@mixin commonTableStyles {
+  @include table;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+
+  @media screen and (max-width: 800px) {
+    @include collapsedHide;
+    .collapsed {
+      display: none;
+    }
+    .minRow {
+      text-align: center;
+
+      .tableInfo {
+        list-style-type: none;
+        padding: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    @include collapsedHide;
+    .minRow {
+      display: none;
+    }
+  }
+}

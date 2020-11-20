@@ -3,10 +3,11 @@ import {getCoins, getCoinsList, getCoinData} from "../api/getData";
 import {Table} from 'reactstrap';
 import "./mainTable.scss"
 import Preloader from "../Preloader/Preloader";
-import BasicPagination from "../Paginator/Paginator";
+import Paginator from "../Paginator/Paginator";
 import getToFixedNumber from "../../helpers/getToFixedNumber";
 import returnColorClassName from "../../helpers/returnColorClassName";
-import WidgetConnect from "../../WidgetConnect/WidgetConnect";
+import TableHeader from "../TableHeaders/TableHeaders";
+import {mainCoinsTableHeaders} from "../FormatTemplates/tableHeaders";
 
 class MainTable extends React.PureComponent {
 
@@ -32,9 +33,7 @@ class MainTable extends React.PureComponent {
 
 
     getDataByPage = ({page, vsCurrency, orderBy, resultPerPage}) => {
-
         getCoins({page, vsCurrency, orderBy, resultPerPage}).then(async (data) => {
-
             await getCoinsList().then((list) => {
                 this.setState({
                     pagesNumber: Math.ceil(list.length / resultPerPage)
@@ -43,7 +42,6 @@ class MainTable extends React.PureComponent {
             this.setState({
                 coinList: data,
             })
-
             this.createTable(data)
         })
     }
@@ -56,22 +54,6 @@ class MainTable extends React.PureComponent {
             activePage: nextPage
         })
         this.getDataByPage({page: nextPage, vsCurrency, orderBy, resultPerPage})
-    }
-
-
-    headers() {
-        return (
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Coin</th>
-                <th>Price</th>
-                <th>1h</th>
-                <th>24h</th>
-                <th>7d</th>
-            </tr>
-            </thead>
-        )
     }
 
 
@@ -94,9 +76,20 @@ class MainTable extends React.PureComponent {
                     <td>{activePage === 1 ? activePage + i : (activePage - 1) * resultPerPage + i + 1}</td>
                     <td className='nameWithLogo'><img className='coinLogo' src={image} alt=""/>{name}</td>
                     <td>{current_price || '$0.00'}</td>
-                    <td className={returnColorClassName(short1h)}>{short1h}</td>
-                    <td className={returnColorClassName(short24h)}>{short24h}</td>
-                    <td className={returnColorClassName(short7d)}>{short7d}</td>
+                    <td className={`${returnColorClassName(short1h)} collapsed`}>{short1h}</td>
+                    <td className={`${returnColorClassName(short24h)} collapsed`}>{short24h}</td>
+                    <td className={`${returnColorClassName(short7d)} collapsed`}>{short7d}</td>
+
+                    <td className='minRow'>
+                        <ul className='tableInfo'>
+                            <li className={`${returnColorClassName(short1h)}`}>{`1h: ${short1h}`}</li>
+                            <hr />
+                            <li className={`${returnColorClassName(short24h)}`}>{`24h: ${short24h}`}</li>
+                            <hr />
+                            <li className={`${returnColorClassName(short7d)}`}>{`7d: ${short7d}`}</li>
+                        </ul>
+                    </td>
+
                 </tr>
             )
         })
@@ -114,15 +107,15 @@ class MainTable extends React.PureComponent {
             <div className='tableContainer'>
                 {loading ? <Preloader/> :
                     <Table striped className='mainTable'>
-                        {this.headers()}
+                        <TableHeader template={mainCoinsTableHeaders}/>
                         <tbody>
                         {coinTableData}
                         </tbody>
                     </Table>}
 
-                <BasicPagination activePage={activePage} pagesNumber={pagesNumber}
-                                 handleGoToPage={this.handleGoToPage}
-                                 currencyList={currencyList}/>
+                <Paginator activePage={activePage} pagesNumber={pagesNumber}
+                           handleGoToPage={this.handleGoToPage}
+                           currencyList={currencyList}/>
             </div>
         )
     }
