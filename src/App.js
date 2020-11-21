@@ -1,16 +1,17 @@
 import React from 'react';
-import MainTable from './components/MainPage/MainPage';
-import CoinDetails from './components/CoinDetails/CoinDetails';
+import { Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
-import { Route, Switch } from 'react-router-dom';
+
+import MainPageHooks from './components/MainPage/MainPageHooks';
+import CoinDetailsHooks from './components/CoinDetails/CoinDetailsHooks';
 
 function App() {
   return (
     <div className='App'>
       <Switch>
-        <Route exact path='/' component={MainTable} />
-        <Route path='/coins/:ids' component={CoinDetails} />
+        <Route exact path='/' component={MainPageHooks} />
+        <Route path='/coins/:ids' component={CoinDetailsHooks} />
       </Switch>
     </div>
   );

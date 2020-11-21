@@ -48,10 +48,6 @@ export const jumpToPage = (nextPage) => (dispatch) => {
   dispatch(setActivePage(nextPage));
 };
 
-/* export const setPageIsLoading = (isLoading) => (dispatch) => {
-  dispatch(setLoading(isLoading));
-}; */
-
 const coinsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOADING:
