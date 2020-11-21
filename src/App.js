@@ -2,7 +2,7 @@ import React from 'react';
 import MainTable from './components/MainPage/MainPage';
 import CoinDetails from './components/CoinDetails/CoinDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.scss';
 import { Route, Switch } from 'react-router-dom';
 
 function App() {

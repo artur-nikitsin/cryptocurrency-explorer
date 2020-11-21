@@ -1,0 +1,13 @@
+.coinInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  min-height: 100vh;
+  border: 1px solid red;
+
+  .coinChartWrapper{
+    width: 80vw;
+  }
+}

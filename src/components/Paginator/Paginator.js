@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import './paginator.scss';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,9 +23,7 @@ export default function Paginator({ pagesNumber, handleGoToPage, activePage }) {
 
   return (
     <div className={classes.root}>
-      <Typography>
-        Page: {page} of {pagesNumber}
-      </Typography>
+      <Typography>{`Page: ${page} of ${pagesNumber}`}</Typography>
       <Pagination
         page={page}
         onChange={handleChange}
@@ -37,3 +36,7 @@ export default function Paginator({ pagesNumber, handleGoToPage, activePage }) {
     </div>
   );
 }
+
+Paginator.propTypes = { pagesNumber: PropTypes.number, handleGoToPage: PropTypes.func, activePage: PropTypes.number };
+
+Paginator.defaultProps = { pagesNumber: null, handleGoToPage: null, activePage: null };

@@ -28,6 +28,8 @@ const initialState = {
   activePage: 1,
   vsCurrency: 'usd',
   orderBy: 'market_cap_desc',
+
+  localization: 'en',
 };
 
 export const getDataByPage = ({ page, vsCurrency, orderBy, resultsPerPage }) => (dispatch) => {
@@ -45,6 +47,10 @@ export const jumpToPage = (nextPage) => (dispatch) => {
   dispatch(setLoading(true));
   dispatch(setActivePage(nextPage));
 };
+
+/* export const setPageIsLoading = (isLoading) => (dispatch) => {
+  dispatch(setLoading(isLoading));
+}; */
 
 const coinsReducer = (state = initialState, action) => {
   switch (action.type) {

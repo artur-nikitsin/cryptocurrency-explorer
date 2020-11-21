@@ -29,7 +29,7 @@ class CoinsTable extends React.PureComponent {
       const short7d = getToFixedNumber(price_change_percentage_7d_in_currency, 1);
 
       return (
-        <tr key={id} onClick={() => getCoinData(id)}>
+        <tr key={id}>
           <td>{activePage === 1 ? activePage + i : (activePage - 1) * resultsPerPage + i + 1}</td>
           <td className='nameWithLogo'>
             <img className='coinLogo' src={image} alt='' />
