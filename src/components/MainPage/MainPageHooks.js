@@ -6,28 +6,15 @@ import Paginator from '../Paginator/Paginator';
 import { getDataByPage, jumpToPage } from '../../redux/reducers/coinsReducer';
 import CoinsTable from '../CoinsTable/CoinsTable';
 
-const MainPageHooks = (props) => {
+const MainPageHooks = ({ loading, getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy }) => {
   useEffect(() => {
-    const { getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy } = props;
     getDataByPage({ page: activePage, vsCurrency, orderBy, resultsPerPage });
-  }, []);
+  }, [activePage]);
 
-  const handleGoToPage = (nextPage) => {
-    const { vsCurrency, orderBy, resultsPerPage, getDataByPage, jumpToPage } = props;
-    jumpToPage(nextPage);
-    getDataByPage({ page: nextPage, vsCurrency, orderBy, resultsPerPage });
-  };
-
-  const { loading, activePage, pagesNumber, coinsList } = props;
   return (
     <div className='tableContainer'>
       {loading ? <Preloader /> : <CoinsTable />}
-      <Paginator
-        activePage={activePage}
-        pagesNumber={pagesNumber}
-        handleGoToPage={handleGoToPage}
-        currencyList={coinsList}
-      />
+      <Paginator />
     </div>
   );
 };
@@ -37,7 +24,7 @@ const mapStateToProps = (state) => {
     loading,
     coinsList,
     coinsTableData,
-    pagesNumber,
+    coinsNumber,
     resultsPerPage,
     activePage,
     vsCurrency,
@@ -47,7 +34,7 @@ const mapStateToProps = (state) => {
     loading,
     coinsList,
     coinsTableData,
-    pagesNumber,
+    coinsNumber,
     resultsPerPage,
     activePage,
     vsCurrency,

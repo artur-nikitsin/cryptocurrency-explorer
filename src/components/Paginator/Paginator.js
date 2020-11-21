@@ -1,42 +1,66 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Pagination from '@material-ui/lab/Pagination';
-import Typography from '@material-ui/core/Typography';
-import './paginator.scss';
 import PropTypes from 'prop-types';
+import { Pagination } from 'antd';
+import React from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { setResultsPerPage, jumpToPage, getDataByPage } from '../../redux/reducers/coinsReducer';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
-
-export default function Paginator({ pagesNumber, handleGoToPage, activePage }) {
-  const classes = useStyles();
-  const [page, setPage] = React.useState(activePage);
-  const handleChange = (event, value) => {
-    setPage(value);
-    handleGoToPage(value);
+// eslint-disable-next-line no-shadow
+const Paginator = ({ coinsNumber, activePage, resultsPerPage, vsCurrency, orderBy, getDataByPage, jumpToPage }) => {
+  const dispatch = useDispatch();
+  const onChange = (page, pageSize) => {
+    const nextPage = page;
+    if (pageSize === resultsPerPage) {
+      jumpToPage(page);
+      getDataByPage({ page: nextPage, vsCurrency, orderBy, resultsPerPage: pageSize });
+    }
   };
-
+  const onShowSizeChange = (current, size) => {
+    jumpToPage(1);
+    dispatch(setResultsPerPage(size));
+    getDataByPage({ page: 1, vsCurrency, orderBy, resultsPerPage: size });
+  };
   return (
-    <div className={classes.root}>
-      <Typography>{`Page: ${page} of ${pagesNumber}`}</Typography>
-      <Pagination
-        page={page}
-        onChange={handleChange}
-        count={pagesNumber}
-        showFirstButton
-        showLastButton
-        variant='outlined'
-        shape='rounded'
-      />
-    </div>
+    <Pagination
+      showSizeChanger
+      defaultCurrent={1}
+      current={activePage}
+      onChange={onChange}
+      total={coinsNumber}
+      defaultPageSize={resultsPerPage}
+      onShowSizeChange={onShowSizeChange}
+    />
   );
-}
+};
 
-Paginator.propTypes = { pagesNumber: PropTypes.number, handleGoToPage: PropTypes.func, activePage: PropTypes.number };
+Paginator.propTypes = {
+  coinsNumber: PropTypes.number,
+  activePage: PropTypes.number,
+  resultsPerPage: PropTypes.number,
+  vsCurrency: PropTypes.string,
+  orderBy: PropTypes.string,
+  getDataByPage: PropTypes.func,
+  jumpToPage: PropTypes.func,
+};
 
-Paginator.defaultProps = { pagesNumber: null, handleGoToPage: null, activePage: null };
+Paginator.defaultProps = {
+  coinsNumber: null,
+  activePage: 1,
+  resultsPerPage: 10,
+  vsCurrency: 'usd',
+  orderBy: 'market_cap_desc',
+  getDataByPage: null,
+  jumpToPage: null,
+};
+
+const mapStateToProps = (state) => {
+  const { coinsNumber, resultsPerPage, activePage, vsCurrency, orderBy } = state.coins;
+  return {
+    coinsNumber,
+    resultsPerPage,
+    activePage,
+    vsCurrency,
+    orderBy,
+  };
+};
+
+export default connect(mapStateToProps, { jumpToPage, getDataByPage })(Paginator);

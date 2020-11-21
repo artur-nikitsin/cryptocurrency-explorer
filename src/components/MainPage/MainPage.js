@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './mainPage.scss';
 import Preloader from '../Preloader/Preloader';
-import Paginator from '../Paginator/Paginator';
+import Paginator from '../MaterialPaginator/Paginator';
 import { getDataByPage, jumpToPage } from '../../redux/reducers/coinsReducer';
 import CoinsTable from '../CoinsTable/CoinsTable';
 

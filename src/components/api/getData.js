@@ -1,9 +1,9 @@
 const axios = require('axios').default;
 
-export const getCoins = ({ page, vsCurrency, orderBy, resultPerPage }) => {
+export const getCoins = ({ page, vsCurrency, orderBy, resultsPerPage }) => {
   return axios({
     method: 'get',
-    url: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${vsCurrency}&order=${orderBy}&per_page=${resultPerPage}&page=${page}&sparkline=false&price_change_percentage=1h%2C24h%2C7d`,
+    url: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${vsCurrency}&order=${orderBy}&per_page=${resultsPerPage}&page=${page}&sparkline=false&price_change_percentage=1h%2C24h%2C7d`,
     responseType: 'json',
   })
     .then(function(response) {
