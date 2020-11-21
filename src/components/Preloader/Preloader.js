@@ -1,14 +1,8 @@
 import React from 'react';
-import './preloader.scss';
+import { Spin } from 'antd';
 
-function Preloader() {
-  return (
-    <div className='preloader'>
-      <div className='one' />
-      <div className='two' />
-      <div className='three' />
-    </div>
-  );
-}
+const Preloader = () => {
+  return <Spin size='large' />;
+};
 
 export default Preloader;

@@ -6,7 +6,6 @@ export const mainCoinsTableHeaders = [
   { title: '#', className: '', dataIndex: 'number' },
   {
     title: 'Coin',
-    className: '',
     dataIndex: 'coin',
     render: (text, data) => {
       return (
@@ -19,12 +18,10 @@ export const mainCoinsTableHeaders = [
   },
   {
     title: 'Price',
-    className: '',
     dataIndex: 'price',
   },
   {
     title: '1h',
-    className: 'collapsed',
     dataIndex: '1h',
     render: (text, data) => {
       return <span className={`${returnColorClassName(data.priceChange1h)}`}>{data.priceChange1h}</span>;
@@ -32,7 +29,6 @@ export const mainCoinsTableHeaders = [
   },
   {
     title: '24h',
-    className: 'collapsed',
     dataIndex: '24h',
     render: (text, data) => {
       return <span className={`${returnColorClassName(data.priceChange24h)}`}>{data.priceChange1h}</span>;
@@ -40,7 +36,6 @@ export const mainCoinsTableHeaders = [
   },
   {
     title: '7d',
-    className: 'collapsed',
     dataIndex: '7d',
     render: (text, data) => {
       return <span className={`${returnColorClassName(data.priceChange7d)}`}>{data.priceChange1h}</span>;

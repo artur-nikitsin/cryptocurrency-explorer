@@ -13,8 +13,13 @@ const MainPage = ({ loading, getDataByPage, resultsPerPage, activePage, vsCurren
 
   return (
     <div className='tableContainer'>
-      {loading ? <Preloader /> : <CoinsTable />}
-      <Paginator />
+      {loading ? (
+        <Preloader />
+      ) : (
+        <>
+          <CoinsTable /> <Paginator />
+        </>
+      )}
     </div>
   );
 };
