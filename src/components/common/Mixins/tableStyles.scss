@@ -1,5 +1,5 @@
 @mixin table {
-  width: 80vw;
+  max-width: 80vw;
   border-collapse: collapse;
   background: #ffffff;
 }
@@ -27,7 +27,6 @@
 @mixin commonTableStyles {
   @include table;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-
 
   @media screen and (max-width: 800px) {
     @include collapsedHide;

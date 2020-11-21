@@ -1,0 +1,24 @@
+@import "src/components/common/Mixins/tableStyles";
+
+.coinsTable {
+  @include commonTableStyles;
+
+  .nameWithLogo {
+    text-align: left;
+
+    .coinLogo {
+      height: 2rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .green {
+    color: #28a745;
+  }
+
+  .red {
+    color: red;
+  }
+
+}
+

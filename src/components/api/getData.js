@@ -43,16 +43,14 @@ export const getCoinData = (id) => {
     });
 };
 
-export const getVsCurrencies = (id) => {
+export const getVsCurrencies = () => {
   return axios({
     method: 'get',
     url: `https://api.coingecko.com/api/v3/simple/supported_vs_currencies`,
     responseType: 'json',
   })
-    .then(function(response) {
-      if (response.status === 200) {
-        return response.data;
-      }
+    .then((response) => {
+      return response.data;
     })
     .catch((error) => {
       console.log('error', error);

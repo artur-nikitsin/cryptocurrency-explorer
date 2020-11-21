@@ -1,5 +1,5 @@
 import React from 'react';
-import MainPage from './components/MainPage/MainPage';
+import MainTable from './components/MainPage/MainPage';
 import CoinDetails from './components/CoinDetails/CoinDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='App'>
       <Switch>
-        <Route exact path='/' component={MainPage} />
+        <Route exact path='/' component={MainTable} />
         <Route path='/coins/:ids' component={CoinDetails} />
       </Switch>
     </div>
