@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,54 +8,47 @@ import CoinChart from '../CoinChart/CoinChart';
 import Preloader from '../Preloader/Preloader';
 import './coinDetails.scss';
 
-class CoinDetails extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      coinData: {},
-    };
-  }
+const CoinDetails = ({
+  localization,
+  match: {
+    params: { ids },
+  },
+}) => {
+  const [coinData, setCoinData] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  componentDidMount() {
-    const { ids } = this.props.match.params;
-
-    getCoinData(ids).then((coinData) => {
-      this.setState({
-        coinData,
-        loading: false,
-      });
+  useEffect(() => {
+    setLoading(true);
+    getCoinData(ids).then((result) => {
+      setCoinData(result);
+      setLoading(false);
     });
-  }
+  }, []);
 
-  render() {
-    const { ids } = this.props.match.params;
-    const { loading } = this.state;
-    const { localization } = this.props;
-    const { name, image, description } = this.state.coinData;
+  const { name, image, description } = coinData;
 
-    console.log(this.state);
-    return (
-      <>
-        {loading ? (
-          <Preloader />
-        ) : (
-          <div className='coinInfoContainer'>
-            <NavLink to='/'>Return to full list</NavLink>
-            <div>
-              <img src={image.small} alt={name} />
-              <h1>{name}</h1>
-            </div>
-            <div>{ReactHtmlParser(description[localization])}</div>
-            <div className='coinChartWrapper'>
-              <CoinChart ids={ids} />
-            </div>
+  console.log(coinData);
+
+  return (
+    <>
+      {loading ? (
+        <Preloader />
+      ) : (
+        <div className='coinInfoContainer'>
+          <NavLink to='/'>Return to full list</NavLink>
+          <div>
+            <img src={image.small} alt={name} />
+            <h1>{name}</h1>
           </div>
-        )}
-      </>
-    );
-  }
-}
+          <div>{ReactHtmlParser(description[localization])}</div>
+          <div className='coinChartWrapper'>
+            <CoinChart ids={ids} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 const mapStateToProps = (state) => {
   const { localization } = state.coins;

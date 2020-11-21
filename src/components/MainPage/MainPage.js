@@ -1,45 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import './mainPage.scss';
 import Preloader from '../Preloader/Preloader';
-import Paginator from '../MaterialPaginator/Paginator';
+import Paginator from '../Paginator/Paginator';
 import { getDataByPage, jumpToPage } from '../../redux/reducers/coinsReducer';
 import CoinsTable from '../CoinsTable/CoinsTable';
 
-class MainPage extends React.PureComponent {
-  componentDidMount() {
-    const { getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy } = this.props;
+const MainPage = ({ loading, getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy }) => {
+  useEffect(() => {
     getDataByPage({ page: activePage, vsCurrency, orderBy, resultsPerPage });
-  }
+  }, [activePage]);
 
-  handleGoToPage = (nextPage) => {
-    const { vsCurrency, orderBy, resultsPerPage, getDataByPage, jumpToPage } = this.props;
-    jumpToPage(nextPage);
-    getDataByPage({ page: nextPage, vsCurrency, orderBy, resultsPerPage });
-  };
-
-  render() {
-    const { loading, activePage, pagesNumber, coinsList } = this.props;
-    return (
-      <div className='tableContainer'>
-        {loading ? <Preloader /> : <CoinsTable />}
-        <Paginator
-          activePage={activePage}
-          pagesNumber={pagesNumber}
-          handleGoToPage={this.handleGoToPage}
-          currencyList={coinsList}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className='tableContainer'>
+      {loading ? <Preloader /> : <CoinsTable />}
+      <Paginator />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   const {
     loading,
     coinsList,
     coinsTableData,
-    pagesNumber,
+    coinsNumber,
     resultsPerPage,
     activePage,
     vsCurrency,
@@ -49,7 +34,7 @@ const mapStateToProps = (state) => {
     loading,
     coinsList,
     coinsTableData,
-    pagesNumber,
+    coinsNumber,
     resultsPerPage,
     activePage,
     vsCurrency,

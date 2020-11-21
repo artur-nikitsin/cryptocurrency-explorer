@@ -27,7 +27,6 @@ export const mainCoinsTableHeaders = [
     className: 'collapsed',
     dataIndex: '1h',
     render: (text, data) => {
-      console.log(text, data);
       return <span className={`${returnColorClassName(data.priceChange1h)}`}>{data.priceChange1h}</span>;
     },
   },

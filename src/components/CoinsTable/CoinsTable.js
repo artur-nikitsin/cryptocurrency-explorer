@@ -1,17 +1,13 @@
 import React from 'react';
-import { Table } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { Table } from 'antd';
 import { connect } from 'react-redux';
-import './coinsTable.scss';
 import getToFixedNumber from '../../helpers/getToFixedNumber';
-import returnColorClassName from '../../helpers/returnColorClassName';
-import TableHeader from '../TableHeaders/TableHeaders';
-import { mainCoinsTableHeaders } from '../FormatTemplates/tableHeaders';
+import { mainCoinsTableHeaders } from './tableHeaders';
 import { getDataByPage, jumpToPage } from '../../redux/reducers/coinsReducer';
+import './coinsTable.scss';
 
-class CoinsTable extends React.PureComponent {
-  createTable = (data) => {
-    const { activePage, resultsPerPage } = this.props;
+const CoinsTable = ({ coinsList, activePage, resultsPerPage }) => {
+  const createTable = (data) => {
     return data.map((item, i) => {
       const {
         id,
@@ -27,42 +23,21 @@ class CoinsTable extends React.PureComponent {
       const short24h = getToFixedNumber(price_change_percentage_24h_in_currency, 1);
       const short7d = getToFixedNumber(price_change_percentage_7d_in_currency, 1);
 
-      return (
-        <tr key={id}>
-          <td>{activePage === 1 ? activePage + i : (activePage - 1) * resultsPerPage + i + 1}</td>
-          <td className='nameWithLogo'>
-            <img className='coinLogo' src={image} alt='' />
-            <NavLink to={`/coins/${id}`}>{name}</NavLink>
-          </td>
-          <td>{current_price || '$0.00'}</td>
-          <td className={`${returnColorClassName(short1h)} collapsed`}>{short1h}</td>
-          <td className={`${returnColorClassName(short24h)} collapsed`}>{short24h}</td>
-          <td className={`${returnColorClassName(short7d)} collapsed`}>{short7d}</td>
-
-          <td className='minRow'>
-            <ul className='tableInfo'>
-              <li className={`${returnColorClassName(short1h)}`}>{`1h: ${short1h}`}</li>
-              <hr />
-              <li className={`${returnColorClassName(short24h)}`}>{`24h: ${short24h}`}</li>
-              <hr />
-              <li className={`${returnColorClassName(short7d)}`}>{`7d: ${short7d}`}</li>
-            </ul>
-          </td>
-        </tr>
-      );
+      return {
+        key: id,
+        number: activePage === 1 ? activePage + i : (activePage - 1) * resultsPerPage + i + 1,
+        coin: name,
+        image: image,
+        price: current_price,
+        priceChange1h: short1h,
+        priceChange24h: short24h,
+        priceChange7d: short7d,
+      };
     });
   };
 
-  render() {
-    const { coinsList } = this.props;
-    return (
-      <Table striped className='coinsTable'>
-        <TableHeader template={mainCoinsTableHeaders} />
-        <tbody>{this.createTable(coinsList)}</tbody>
-      </Table>
-    );
-  }
-}
+  return <Table size='middle' pagination={false} columns={mainCoinsTableHeaders} dataSource={createTable(coinsList)} />;
+};
 
 const mapStateToProps = (state) => {
   const { coinsList, resultsPerPage, activePage } = state.coins;

@@ -4,15 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import './App.scss';
 
-import MainPageHooks from './components/MainPage/MainPageHooks';
-import CoinDetailsHooks from './components/CoinDetails/CoinDetailsHooks';
+import MainPage from './components/MainPage/MainPage';
+import CoinDetails from './components/CoinDetails/CoinDetails';
 
 function App() {
   return (
     <div className='App'>
       <Switch>
-        <Route exact path='/' component={MainPageHooks} />
-        <Route path='/coins/:ids' component={CoinDetailsHooks} />
+        <Route exact path='/' component={MainPage} />
+        <Route path='/coins/:ids' component={CoinDetails} />
       </Switch>
     </div>
   );
