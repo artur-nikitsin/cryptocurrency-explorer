@@ -2,7 +2,6 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCoinData } from '../api/getData';
 import './coinsTable.scss';
 import getToFixedNumber from '../../helpers/getToFixedNumber';
 import returnColorClassName from '../../helpers/returnColorClassName';

@@ -5,6 +5,7 @@ import Preloader from '../Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
 import { getDataByPage, jumpToPage } from '../../redux/reducers/coinsReducer';
 import CoinsTable from '../CoinsTable/CoinsTable';
+import CoinsTableANT from '../CoinsTableANT/CoinsTableANT';
 
 const MainPageHooks = ({ loading, getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy }) => {
   useEffect(() => {
@@ -13,7 +14,7 @@ const MainPageHooks = ({ loading, getDataByPage, resultsPerPage, activePage, vsC
 
   return (
     <div className='tableContainer'>
-      {loading ? <Preloader /> : <CoinsTable />}
+      {loading ? <Preloader /> : <CoinsTableANT />}
       <Paginator />
     </div>
   );
