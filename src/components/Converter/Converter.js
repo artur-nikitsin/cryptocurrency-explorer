@@ -5,33 +5,44 @@ import { RightOutlined } from '@ant-design/icons';
 
 export const Converter = ({ coin, vsCurrency, price }) => {
   const [convertedValue, setConverted] = useState(price);
+  const [value, setValue] = useState(1);
 
-  const onChangeFirst = (value) => {
-    setConverted(value * price);
-  };
-  const onChangeSecond = (value) => {
-    console.log('changed', value);
+  const onChange = (value) => {
+    if (typeof value === 'number') {
+      setValue(value);
+      setConverted(value * price);
+    }
+    if (value === '') {
+      setValue(0);
+      setConverted(0);
+    }
   };
 
   return (
     <div className='inputsWrapper'>
+      <span>
+        <strong>{coin.toUpperCase()}</strong>
+      </span>
       <InputNumber
         className='currencyInput'
         size={'large'}
         defaultValue={1}
         min={0}
-        formatter={(value) => ` ${value} ${coin}`}
+        formatter={() => ` ${value}`}
         parser={(value) => value}
-        onChange={onChangeFirst}
+        onChange={onChange}
       />
+
       <RightOutlined />
       <InputNumber
         className='currencyInput'
-        defaultValue={100}
+        defaultValue={price}
         size={'large'}
-        formatter={(value) => ` ${convertedValue}  ${vsCurrency}`}
-        onChange={onChangeSecond}
+        formatter={() => ` ${convertedValue}  `}
       />
+      <span>
+        <strong>{vsCurrency.toUpperCase()}</strong>
+      </span>
     </div>
   );
 };

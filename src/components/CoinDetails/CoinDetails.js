@@ -19,6 +19,8 @@ const CoinDetails = ({
   const [coinData, setCoinData] = useState({});
   const [loading, setLoading] = useState(true);
   console.log(coinData);
+  console.log(Object.keys(coinData));
+  console.log(Object.values(coinData));
 
   useEffect(() => {
     setLoading(true);
@@ -103,11 +105,7 @@ const CoinDetails = ({
               </ul>
             </div>
           </div>
-          <Converter
-            coin={symbol.toUpperCase()}
-            vsCurrency={vsCurrency}
-            price={market_data['current_price'][vsCurrency]}
-          />
+          <Converter coin={symbol} vsCurrency={vsCurrency} price={market_data['current_price'][vsCurrency]} />
           <div className='coinChartWrapper'>
             <CoinChart ids={ids} />
           </div>

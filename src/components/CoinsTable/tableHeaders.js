@@ -19,6 +19,13 @@ export const mainCoinsTableHeaders = [
   {
     title: 'Price',
     dataIndex: 'price',
+    render: (text, data) => {
+      return (
+        <>
+          <span>{` ${data.vsCurrency} ${text}   `}</span>
+        </>
+      );
+    },
   },
   {
     title: '1h',

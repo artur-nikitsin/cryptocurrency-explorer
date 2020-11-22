@@ -6,7 +6,7 @@ import { mainCoinsTableHeaders } from './tableHeaders';
 import { getDataByPage, jumpToPage } from '../../redux/reducers/coinsReducer';
 import './coinsTable.scss';
 
-const CoinsTable = ({ coinsList, activePage, resultsPerPage }) => {
+const CoinsTable = ({ coinsList, activePage, resultsPerPage, vsCurrency }) => {
   const createTable = (data) => {
     return data.map((item, i) => {
       const {
@@ -32,6 +32,7 @@ const CoinsTable = ({ coinsList, activePage, resultsPerPage }) => {
         priceChange1h: short1h,
         priceChange24h: short24h,
         priceChange7d: short7d,
+        vsCurrency: vsCurrency,
       };
     });
   };
@@ -40,11 +41,12 @@ const CoinsTable = ({ coinsList, activePage, resultsPerPage }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { coinsList, resultsPerPage, activePage } = state.coins;
+  const { coinsList, resultsPerPage, activePage, vsCurrency } = state.coins;
   return {
     coinsList,
     resultsPerPage,
     activePage,
+    vsCurrency,
   };
 };
 
