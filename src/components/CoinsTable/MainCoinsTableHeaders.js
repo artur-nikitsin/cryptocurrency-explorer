@@ -1,17 +1,22 @@
 import { NavLink } from 'react-router-dom';
-import React, { useRef } from 'react';
+import React from 'react';
 import returnColorClassName from '../../helpers/returnColorClassName';
-import { useDispatch } from 'react-redux';
-import { setNewOrderBy } from '../../redux/actionGenerators/actionGenerators';
-import store from '../../redux/store';
 
-export const MainCoinsTableHeaders = () => {
-  const dispatch = useDispatch();
+export const MainCoinsTableHeaders = ({ orderBy, setNewOrderBy }) => {
   return [
     { title: '#', className: '', dataIndex: 'number' },
     {
       title: 'Coin',
       dataIndex: 'coin',
+      sorter: true,
+      showSorterTooltip: false,
+      onHeaderCell: () => {
+        return {
+          onClick: () => {
+            setNewOrderBy(orderBy === 'gecko_asc' ? 'gecko_desc' : 'gecko_asc');
+          },
+        };
+      },
       render: (text, data) => {
         return (
           <>
@@ -24,42 +29,41 @@ export const MainCoinsTableHeaders = () => {
     {
       title: 'Price',
       dataIndex: 'price',
-      sorter: true,
+      sorter: (a, b) => +a.price - +b.price,
       sortDirections: ['ascend', 'descend'],
-      onHeaderCell: (column) => {
-        return {
-          onClick: () => {
-            store.dispatch(setNewOrderBy('market_cap_asc'));
-          },
-        };
-      },
-      render: (text, data) => {
+      render: (price, data) => {
         return (
           <>
-            <span>{` ${data.vsCurrency} ${text}   `}</span>
+            <span>{` ${data.vsCurrency} ${price || 0}   `}</span>
           </>
         );
       },
     },
     {
       title: '1h',
-      dataIndex: '1h',
-      render: (text, data) => {
+      dataIndex: 'priceChange1h',
+      sorter: (a, b) => +a.priceChange1hNumber - +b.priceChange1hNumber,
+      sortDirections: ['ascend', 'descend'],
+      render: (priceChange1h, data) => {
         return <span className={`${returnColorClassName(data.priceChange1h)}`}>{data.priceChange1h}</span>;
       },
     },
     {
       title: '24h',
-      dataIndex: '24h',
-      render: (text, data) => {
-        return <span className={`${returnColorClassName(data.priceChange24h)}`}>{data.priceChange1h}</span>;
+      dataIndex: 'priceChange24h',
+      sorter: (a, b) => +a.priceChange24hNumber - +b.priceChange24hNumber,
+      sortDirections: ['ascend', 'descend'],
+      render: (priceChange24h, data) => {
+        return <span className={`${returnColorClassName(data.priceChange24h)}`}>{data.priceChange24h}</span>;
       },
     },
     {
       title: '7d',
-      dataIndex: '7d',
-      render: (text, data) => {
-        return <span className={`${returnColorClassName(data.priceChange7d)}`}>{data.priceChange1h}</span>;
+      dataIndex: 'priceChange1h',
+      sorter: (a, b) => +a.priceChange7dNumber - +b.priceChange7dNumber,
+      sortDirections: ['ascend', 'descend'],
+      render: (priceChange7d, data) => {
+        return <span className={`${returnColorClassName(data.priceChange7d)}`}>{data.priceChange7d}</span>;
       },
     },
   ];

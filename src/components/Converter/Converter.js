@@ -20,29 +20,32 @@ export const Converter = ({ coin, vsCurrency, price }) => {
 
   return (
     <div className='inputsWrapper'>
-      <span>
-        <strong>{coin.toUpperCase()}</strong>
-      </span>
-      <InputNumber
-        className='currencyInput'
-        size={'large'}
-        defaultValue={1}
-        min={0}
-        formatter={() => ` ${value}`}
-        parser={(value) => value}
-        onChange={onChange}
-      />
-
-      <RightOutlined />
-      <InputNumber
-        className='currencyInput'
-        defaultValue={price}
-        size={'large'}
-        formatter={() => ` ${convertedValue}  `}
-      />
-      <span>
-        <strong>{vsCurrency.toUpperCase()}</strong>
-      </span>
+      <div>
+        <span>
+          <strong>{coin.toUpperCase()}</strong>
+        </span>
+        <InputNumber
+          className='currencyInput'
+          size={'large'}
+          defaultValue={1}
+          min={0}
+          formatter={() => ` ${value}`}
+          parser={(value) => value}
+          onChange={onChange}
+        />
+      </div>
+      <div>
+        <RightOutlined />
+        <InputNumber
+          className='currencyInput'
+          defaultValue={price}
+          size={'large'}
+          formatter={() => ` ${convertedValue}  `}
+        />
+        <span>
+          <strong>{vsCurrency.toUpperCase()}</strong>
+        </span>
+      </div>
     </div>
   );
 };

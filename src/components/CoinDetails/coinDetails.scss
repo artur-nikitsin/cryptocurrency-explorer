@@ -13,7 +13,6 @@
     margin: 1rem;
   }
   .coinChartWrapper {
-    border: 1px solid green;
     min-height: 25rem;
     width: 100%;
   }
@@ -25,10 +24,8 @@
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
-    border: 1px solid red;
 
     .nameWithLogo {
-      border: 1px solid green;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -37,7 +34,6 @@
   }
 
   .coinData {
-    border: 1px solid green;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -45,7 +41,8 @@
     width: 100%;
     padding: 1rem;
 
-    .coinGeckoData {
+    .coinGeckoData,
+    .communityInfo{
       display: flex;
       flex-direction: column;
 
@@ -54,14 +51,6 @@
       }
     }
 
-    .communityInfo {
-      display: flex;
-      flex-direction: column;
-
-      .dataList {
-        list-style-type: none;
-      }
-    }
   }
 
 

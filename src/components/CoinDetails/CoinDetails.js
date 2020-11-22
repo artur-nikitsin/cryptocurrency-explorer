@@ -18,9 +18,6 @@ const CoinDetails = ({
 }) => {
   const [coinData, setCoinData] = useState({});
   const [loading, setLoading] = useState(true);
-  console.log(coinData);
-  console.log(Object.keys(coinData));
-  console.log(Object.values(coinData));
 
   useEffect(() => {
     setLoading(true);
@@ -28,7 +25,7 @@ const CoinDetails = ({
       setCoinData(result);
       setLoading(false);
     });
-  }, []);
+  }, [ids]);
 
   const {
     name,
