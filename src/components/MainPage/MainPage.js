@@ -10,7 +10,7 @@ import CoinsTable from '../CoinsTable/CoinsTable';
 const MainPage = ({ loading, getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy }) => {
   useEffect(() => {
     getDataByPage({ page: activePage, vsCurrency, orderBy, resultsPerPage });
-  }, [activePage]);
+  }, [loading, getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy]);
 
   return (
     <div className='tableContainer'>
