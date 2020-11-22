@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Table } from 'antd';
 import { connect } from 'react-redux';
 import getToFixedNumber from '../../helpers/getToFixedNumber';
-import { mainCoinsTableHeaders } from './tableHeaders';
-import { getDataByPage, jumpToPage } from '../../redux/reducers/coinsReducer';
+import { MainCoinsTableHeaders } from './MainCoinsTableHeaders';
+import { getDataByPage } from '../../redux/actionGenerators/actionGenerators';
 import './coinsTable.scss';
 
 const CoinsTable = ({ coinsList, activePage, resultsPerPage, vsCurrency }) => {
@@ -37,7 +37,9 @@ const CoinsTable = ({ coinsList, activePage, resultsPerPage, vsCurrency }) => {
     });
   };
 
-  return <Table size='middle' pagination={false} columns={mainCoinsTableHeaders} dataSource={createTable(coinsList)} />;
+  return (
+    <Table size='middle' pagination={false} columns={MainCoinsTableHeaders()} dataSource={createTable(coinsList)} />
+  );
 };
 
 const mapStateToProps = (state) => {
@@ -50,4 +52,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getDataByPage, jumpToPage })(CoinsTable);
+export default connect(mapStateToProps, { getDataByPage })(CoinsTable);

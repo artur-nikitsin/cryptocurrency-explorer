@@ -1,22 +1,13 @@
-import { getCoins, getCoinsList } from '../../components/api/getData';
-
-const SET_LOADING = 'SET_LOADING';
-const SET_COINS_LIST = 'SET_COINS_LIST';
-const SET_COINS_TABLE_DATA = 'SET_COINS_TABLE_DATA';
-const SET_COINS_NUMBER = 'SET_COINS_NUMBER';
-const SET_RESULTS_PER_PAGE = 'SET_RESULT_PER_PAGE';
-const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
-const SET_VC_CURRENCY = 'SET_VC_CURRENCY';
-const SET_ORDER_BY = 'SET_ORDER_BY';
-
-export const setLoading = (loading) => ({ type: SET_LOADING, loading });
-export const setCoinsList = (coinsList) => ({ type: SET_COINS_LIST, coinsList });
-export const setCoinsTableData = (coinsTableData) => ({ type: SET_COINS_TABLE_DATA, coinsTableData });
-export const setCoinsNumber = (coinsNumber) => ({ type: SET_COINS_NUMBER, coinsNumber });
-export const setResultsPerPage = (resultsPerPage) => ({ type: SET_RESULTS_PER_PAGE, resultsPerPage });
-export const setActivePage = (activePage) => ({ type: SET_ACTIVE_PAGE, activePage });
-export const setVsCurrency = (vsCurrency) => ({ type: SET_VC_CURRENCY, vsCurrency });
-export const setOrderBy = (orderBy) => ({ type: SET_ORDER_BY, orderBy });
+import {
+  SET_ACTIVE_PAGE,
+  SET_COINS_LIST,
+  SET_COINS_NUMBER,
+  SET_COINS_TABLE_DATA,
+  SET_LOADING,
+  SET_ORDER_BY,
+  SET_RESULTS_PER_PAGE,
+  SET_VC_CURRENCY,
+} from '../actions/actions';
 
 const initialState = {
   loading: true,
@@ -29,21 +20,6 @@ const initialState = {
   orderBy: 'market_cap_desc',
 
   localization: 'en',
-};
-
-export const getDataByPage = ({ page, vsCurrency, orderBy, resultsPerPage }) => (dispatch) => {
-  getCoins({ page, vsCurrency, orderBy, resultsPerPage }).then(async (coinsList) => {
-    await getCoinsList().then((list) => {
-      dispatch(setCoinsNumber(list.length));
-    });
-    dispatch(setCoinsList(coinsList));
-    dispatch(setLoading(false));
-  });
-};
-
-export const jumpToPage = (nextPage) => (dispatch) => {
-  dispatch(setLoading(true));
-  dispatch(setActivePage(nextPage));
 };
 
 const coinsReducer = (state = initialState, action) => {
