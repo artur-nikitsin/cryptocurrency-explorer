@@ -2,8 +2,9 @@ import { InputNumber } from 'antd';
 import React, { useState } from 'react';
 import './converter.scss';
 import { RightOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
-export const Converter = ({ coin, vsCurrency, price }) => {
+const Converter = ({ coin, vsCurrency, price }) => {
   const [convertedValue, setConverted] = useState(price);
   const [value, setValue] = useState(1);
 
@@ -26,7 +27,7 @@ export const Converter = ({ coin, vsCurrency, price }) => {
         </span>
         <InputNumber
           className='currencyInput'
-          size={'large'}
+          size='large'
           defaultValue={1}
           min={0}
           formatter={() => ` ${value}`}
@@ -39,7 +40,7 @@ export const Converter = ({ coin, vsCurrency, price }) => {
         <InputNumber
           className='currencyInput'
           defaultValue={price}
-          size={'large'}
+          size='large'
           formatter={() => ` ${convertedValue}  `}
         />
         <span>
@@ -49,3 +50,15 @@ export const Converter = ({ coin, vsCurrency, price }) => {
     </div>
   );
 };
+Converter.propTypes = {
+  vsCurrency: PropTypes.string,
+  price: PropTypes.number,
+  coin: PropTypes.string,
+};
+
+Converter.defaultProps = {
+  vsCurrency: 'usd',
+  price: 0,
+  coin: null,
+};
+export default Converter;

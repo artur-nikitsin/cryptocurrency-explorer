@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Table } from 'antd';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import getToFixedNumber from '../../helpers/getToFixedNumber';
-import { MainCoinsTableHeaders } from './MainCoinsTableHeaders';
+import MainCoinsTableHeaders from './MainCoinsTableHeaders';
 import { setNewOrderBy } from '../../redux/actionGenerators/actionGenerators';
 import './coinsTable.scss';
 
+// eslint-disable-next-line no-shadow
 const CoinsTable = ({ coinsList, activePage, resultsPerPage, vsCurrency, orderBy, setNewOrderBy }) => {
   const createTable = (data) => {
     return data.map((item, i) => {
@@ -27,7 +29,7 @@ const CoinsTable = ({ coinsList, activePage, resultsPerPage, vsCurrency, orderBy
         key: id,
         number: activePage === 1 ? activePage + i : (activePage - 1) * resultsPerPage + i + 1,
         coin: name,
-        image: image,
+        image,
         price: current_price,
         priceChange1h: short1h,
         priceChange24h: short24h,
@@ -35,7 +37,7 @@ const CoinsTable = ({ coinsList, activePage, resultsPerPage, vsCurrency, orderBy
         priceChange1hNumber: price_change_percentage_1h_in_currency,
         priceChange24hNumber: price_change_percentage_24h_in_currency,
         priceChange7dNumber: price_change_percentage_7d_in_currency,
-        vsCurrency: vsCurrency,
+        vsCurrency,
       };
     });
   };
@@ -61,4 +63,21 @@ const mapStateToProps = (state) => {
   };
 };
 
+CoinsTable.propTypes = {
+  coinsList: PropTypes.arrayOf(PropTypes.object),
+  resultsPerPage: PropTypes.number,
+  activePage: PropTypes.number,
+  vsCurrency: PropTypes.string,
+  orderBy: PropTypes.string,
+  setNewOrderBy: PropTypes.func,
+};
+
+CoinsTable.defaultProps = {
+  coinsList: [],
+  resultsPerPage: 10,
+  activePage: '1',
+  vsCurrency: 'usd',
+  orderBy: '',
+  setNewOrderBy: null,
+};
 export default connect(mapStateToProps, { setNewOrderBy })(CoinsTable);

@@ -3,11 +3,12 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
+import { RightOutlined } from '@ant-design/icons';
 import { getCoinData } from '../api/getData';
 import CoinChart from '../CoinChart/CoinChart';
 import Preloader from '../Preloader/Preloader';
 import './coinDetails.scss';
-import { Converter } from '../Converter/Converter';
+import Converter from '../Converter/Converter';
 
 const CoinDetails = ({
   localization,
@@ -48,7 +49,9 @@ const CoinDetails = ({
       ) : (
         <div className='coinInfoContainer'>
           <span className='navLinks'>
-            <NavLink to='/'>Coins</NavLink> / <NavLink to={`/coins/${ids}`}>{ids}</NavLink>
+            <NavLink to='/'>Coins</NavLink>
+            <RightOutlined size='small' />
+            <NavLink to={`/coins/${ids}`}>{ids}</NavLink>
           </span>
 
           <div className='mainHeader'>
@@ -56,7 +59,7 @@ const CoinDetails = ({
               <img src={image.small} alt={name} />
               <h1>{`${name} (${symbol.toUpperCase()})`}</h1>
             </span>
-            <h1>{`${market_data['current_price'][vsCurrency]} ${vsCurrency}`}</h1>
+            <h1>{`${market_data.current_price[vsCurrency]} ${vsCurrency}`}</h1>
           </div>
 
           <div className='coinData'>
@@ -94,15 +97,15 @@ const CoinDetails = ({
                 <strong> Market data:</strong>
               </p>
               <ul className='dataList'>
-                <li>{`Market cap: ${market_data['market_cap'][vsCurrency]} ${vsCurrency}`}</li>
-                <li>{`24 low/high: ${market_data['low_24h'][vsCurrency]}/${market_data['high_24h'][vsCurrency]} ${vsCurrency}`}</li>
-                <li>{`Fully diluted valuation: ${market_data['fully_diluted_valuation'][vsCurrency]} ${vsCurrency}`}</li>
-                <li>{`Circulating supply: ${market_data['circulating_supply']}`}</li>
-                <li>{`Max supply: ${market_data['max_supply']}`}</li>
+                <li>{`Market cap: ${market_data.market_cap[vsCurrency]} ${vsCurrency}`}</li>
+                <li>{`24 low/high: ${market_data.low_24h[vsCurrency]}/${market_data.high_24h[vsCurrency]} ${vsCurrency}`}</li>
+                <li>{`Fully diluted valuation: ${market_data.fully_diluted_valuation[vsCurrency]} ${vsCurrency}`}</li>
+                <li>{`Circulating supply: ${market_data.circulating_supply}`}</li>
+                <li>{`Max supply: ${market_data.max_supply}`}</li>
               </ul>
             </div>
           </div>
-          <Converter coin={symbol} vsCurrency={vsCurrency} price={market_data['current_price'][vsCurrency]} />
+          <Converter coin={symbol} vsCurrency={vsCurrency} price={market_data.current_price[vsCurrency]} />
           <div className='coinChartWrapper'>
             <CoinChart ids={ids} />
           </div>

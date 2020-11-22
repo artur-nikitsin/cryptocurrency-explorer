@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import React from 'react';
 import returnColorClassName from '../../helpers/returnColorClassName';
 
-export const MainCoinsTableHeaders = ({ orderBy, setNewOrderBy }) => {
+const MainCoinsTableHeaders = ({ orderBy, setNewOrderBy }) => {
   return [
     { title: '#', className: '', dataIndex: 'number' },
     {
@@ -68,3 +68,5 @@ export const MainCoinsTableHeaders = ({ orderBy, setNewOrderBy }) => {
     },
   ];
 };
+
+export default MainCoinsTableHeaders;

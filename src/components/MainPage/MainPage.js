@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import './mainPage.scss';
+import PropTypes from 'prop-types';
 import Preloader from '../Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
 import { getDataByPage, jumpToPage } from '../../redux/actionGenerators/actionGenerators';
@@ -17,7 +18,8 @@ const MainPage = ({ loading, getDataByPage, resultsPerPage, activePage, vsCurren
         <Preloader />
       ) : (
         <>
-          <CoinsTable /> <Paginator />
+          <CoinsTable />
+          <Paginator />
         </>
       )}
     </div>
@@ -47,4 +49,21 @@ const mapStateToProps = (state) => {
   };
 };
 
+MainPage.propTypes = {
+  loading: PropTypes.bool,
+  resultsPerPage: PropTypes.number,
+  activePage: PropTypes.number,
+  vsCurrency: PropTypes.string,
+  orderBy: PropTypes.string,
+  getDataByPage: PropTypes.func,
+};
+
+MainPage.defaultProps = {
+  loading: true,
+  resultsPerPage: 10,
+  activePage: '1',
+  vsCurrency: 'usd',
+  orderBy: '',
+  getDataByPage: null,
+};
 export default connect(mapStateToProps, { getDataByPage, jumpToPage })(MainPage);

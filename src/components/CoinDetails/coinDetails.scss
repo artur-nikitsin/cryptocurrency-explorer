@@ -8,9 +8,17 @@
   min-height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
+  @mixin flexRowSpaceBetween {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   .navLinks{
+    @include flexRowSpaceBetween;
+    align-items: center;
     align-self: flex-start;
     margin: 1rem;
+    width: 6rem;
   }
   .coinChartWrapper {
     min-height: 25rem;
@@ -18,9 +26,7 @@
   }
 
   .mainHeader {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flexRowSpaceBetween;
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
@@ -34,9 +40,7 @@
   }
 
   .coinData {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+   @include flexRowSpaceBetween;
     flex-wrap: wrap;
     width: 100%;
     padding: 1rem;
