@@ -3,11 +3,69 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80vw;
+  width: 90vw;
+  padding: 1rem;
   min-height: 100vh;
-  border: 1px solid red;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
-  .coinChartWrapper{
-    width: 80vw;
+  .navLinks{
+    align-self: flex-start;
+    margin: 1rem;
+  }
+  .coinChartWrapper {
+    border: 1px solid green;
+    min-height: 25rem;
+    width: 100%;
+  }
+
+  .mainHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    border: 1px solid red;
+
+    .nameWithLogo {
+      border: 1px solid green;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .coinData {
+    border: 1px solid green;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 1rem;
+
+    .coinGeckoData {
+      display: flex;
+      flex-direction: column;
+
+      .dataList {
+        list-style-type: none;
+      }
+    }
+
+    .communityInfo {
+      display: flex;
+      flex-direction: column;
+
+      .dataList {
+        list-style-type: none;
+      }
+    }
+  }
+
+
+  .description {
+    padding: 1rem;
   }
 }
