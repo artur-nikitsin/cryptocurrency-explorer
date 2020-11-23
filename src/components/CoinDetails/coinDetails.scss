@@ -49,7 +49,8 @@
         flex-direction: row;
         justify-content: center;
         align-items: flex-start;
-        .logo{
+
+        .logo {
           margin-right: 1rem;
         }
       }
@@ -62,7 +63,8 @@
       padding: 1rem;
 
       .coinGeckoData,
-      .communityInfo {
+      .communityInfo,
+      .marketData {
         display: flex;
         flex-direction: column;
 
@@ -73,7 +75,7 @@
 
     }
 
-    .priceChange{
+    .priceChange {
       width: 100%;
       min-height: 4rem;
       @include flexRowSpaceBetween;
@@ -91,6 +93,7 @@
         margin: 0.5rem;
       }
     }
+
     .description {
       padding: 1rem;
     }

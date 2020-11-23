@@ -9,8 +9,10 @@ import CoinChart from '../CoinChart/CoinChart';
 import Preloader from '../Preloader/Preloader';
 import './coinDetails.scss';
 import Converter from '../Converter/Converter';
-import getToFixedNumber from '../../helpers/getToFixedNumber';
-import returnColorClassName from '../../helpers/returnColorClassName';
+import CommunityData from './CommunityData';
+import CoinGeckoData from './CoingeckoData';
+import MarketData from './MarketData';
+import PriceChange from './PriceChange';
 
 const CoinDetails = ({
   localization,
@@ -30,19 +32,7 @@ const CoinDetails = ({
     });
   }, [ids]);
 
-  const {
-    name,
-    image,
-    market_data,
-    description,
-    symbol,
-    block_time_in_minutes,
-    categories,
-    coingecko_rank,
-    coingecko_score,
-    community_data,
-    community_score,
-  } = coinData;
+  const { name, image, market_data, description, symbol, community_data } = coinData;
 
   return (
     <div className='coinDetails'>
@@ -65,71 +55,13 @@ const CoinDetails = ({
           </div>
 
           <div className='coinData'>
-            <div className='communityInfo'>
-              <p>
-                <strong>Community data:</strong>
-              </p>
-              <ul className='dataList'>
-                <li>{`Facebook likes: ${community_data.facebook_likes || 0}`}</li>
-                <li>{`Reddit accounts active 48h: ${community_data.reddit_accounts_active_48h || 0}`}</li>
-                <li>{`Reddit average comments 48h: ${community_data.reddit_average_comments_48h || 0}`}</li>
-                <li>{`Reddit average posts 48h: ${community_data.reddit_average_posts_48h || 0}`}</li>
-
-                <li>{`Reddit subscribers: ${community_data.reddit_subscribers || 0}`}</li>
-                <li>{`Telegram channel user count: ${community_data.telegram_channel_user_count || 0}`}</li>
-                <li>{`Twitter followers: ${community_data.twitter_followers || 0}`}</li>
-              </ul>
-            </div>
-
-            <div className='coinGeckoData'>
-              <p>
-                <strong> Coingecko data:</strong>
-              </p>
-              <ul className='dataList'>
-                <li>{`Block time in minutes: ${block_time_in_minutes}`}</li>
-                <li>{`Categories: ${categories[0] || 'none'}`}</li>
-                <li>{`Coingecko rank: ${coingecko_rank}`}</li>
-                <li>{`Coingecko score: ${coingecko_score}`}</li>
-                <li>{`Community score: ${community_score}`}</li>
-              </ul>
-            </div>
-
-            <div className='coinGeckoData'>
-              <p>
-                <strong> Market data:</strong>
-              </p>
-              <ul className='dataList'>
-                <li>{`Market cap: ${market_data.market_cap[vsCurrency]} ${vsCurrency}`}</li>
-                <li>{`24 low/high: ${market_data.low_24h[vsCurrency]}/${market_data.high_24h[vsCurrency]} ${vsCurrency}`}</li>
-                <li>{`Fully diluted valuation: ${market_data.fully_diluted_valuation[vsCurrency]} ${vsCurrency}`}</li>
-                <li>{`Circulating supply: ${market_data.circulating_supply}`}</li>
-                <li>{`Max supply: ${market_data.max_supply}`}</li>
-              </ul>
-            </div>
+            <CommunityData data={community_data} />
+            <CoinGeckoData data={coinData} />
+            <MarketData data={{ market_data, vsCurrency }} />
           </div>
 
           <Converter coin={symbol} vsCurrency={vsCurrency} price={market_data.current_price[vsCurrency]} />
-
-          <ul className='priceChange'>
-            <li className={returnColorClassName(market_data.price_change_percentage_1h_in_currency[vsCurrency])}>
-              {`1h: ${getToFixedNumber(market_data.price_change_percentage_1h_in_currency[vsCurrency])}`}
-            </li>
-            <li className={returnColorClassName(market_data.price_change_24h_in_currency[vsCurrency])}>
-              {`24h: ${getToFixedNumber(market_data.price_change_24h_in_currency[vsCurrency])}`}
-            </li>
-            <li className={returnColorClassName(market_data.price_change_percentage_7d_in_currency[vsCurrency])}>
-              {`7d: ${getToFixedNumber(market_data.price_change_percentage_7d_in_currency[vsCurrency])}`}
-            </li>
-            <li className={returnColorClassName(market_data.price_change_percentage_14d_in_currency[vsCurrency])}>
-              {`14d: ${getToFixedNumber(market_data.price_change_percentage_14d_in_currency[vsCurrency])}`}
-            </li>
-            <li className={returnColorClassName(market_data.price_change_percentage_30d_in_currency[vsCurrency])}>
-              {`30d: ${getToFixedNumber(market_data.price_change_percentage_30d_in_currency[vsCurrency])}`}
-            </li>
-            <li className={returnColorClassName(market_data.price_change_percentage_1y_in_currency[vsCurrency])}>
-              {`1y: ${getToFixedNumber(market_data.price_change_percentage_1y_in_currency[vsCurrency])}`}
-            </li>
-          </ul>
+          <PriceChange data={{ market_data, vsCurrency }} />
           <div className='coinChartWrapper'>
             <CoinChart ids={ids} />
           </div>

@@ -2,9 +2,10 @@ import React from 'react';
 import './footer.scss';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <div className='footer'>
-      <p>Artur Nikitsin 2020. All rights reversed ©</p>
+      <p>{`Artur Nikitsin ${currentYear}. All rights reversed ©`}</p>
     </div>
   );
 };
