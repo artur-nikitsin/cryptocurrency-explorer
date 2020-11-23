@@ -1,64 +1,73 @@
-.coinInfoContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90vw;
-  padding: 1rem;
-  min-height: 100vh;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
-  @mixin flexRowSpaceBetween {
+.coinDetails {
+  @mixin flexColumnCenter {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .navLinks{
-    @include flexRowSpaceBetween;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    align-self: flex-start;
-    margin: 1rem;
-    width: 6rem;
   }
-  .coinChartWrapper {
-    min-height: 25rem;
-    width: 100%;
-  }
+  @include flexColumnCenter;
+  min-height: 80vw;
 
-  .mainHeader {
-    @include flexRowSpaceBetween;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 100%;
+  .coinInfoContainer {
+    @include flexColumnCenter;
+    width: 90vw;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
-    .nameWithLogo {
+    @mixin flexRowSpaceBetween {
       display: flex;
       flex-direction: row;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-between;
     }
-  }
 
-  .coinData {
-   @include flexRowSpaceBetween;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 1rem;
+    .navLinks {
+      @include flexRowSpaceBetween;
+      align-items: center;
+      align-self: flex-start;
+      margin: 1rem;
+      width: 8rem;
+    }
 
-    .coinGeckoData,
-    .communityInfo{
-      display: flex;
-      flex-direction: column;
+    .coinChartWrapper {
+      min-height: 25rem;
+      width: 100%;
+    }
 
-      .dataList {
-        list-style-type: none;
+    .mainHeader {
+      @include flexRowSpaceBetween;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+
+      .nameWithLogo {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
       }
     }
 
-  }
+    .coinData {
+      @include flexRowSpaceBetween;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 1rem;
 
+      .coinGeckoData,
+      .communityInfo {
+        display: flex;
+        flex-direction: column;
 
-  .description {
-    padding: 1rem;
+        .dataList {
+          list-style-type: none;
+        }
+      }
+
+    }
+
+    .description {
+      padding: 1rem;
+    }
   }
 }

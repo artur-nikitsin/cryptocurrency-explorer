@@ -43,7 +43,7 @@ const CoinDetails = ({
   } = coinData;
 
   return (
-    <>
+    <div className='coinDetails'>
       {loading && coinData ? (
         <Preloader />
       ) : (
@@ -59,7 +59,7 @@ const CoinDetails = ({
               <img src={image.small} alt={name} />
               <h1>{`${name} (${symbol.toUpperCase()})`}</h1>
             </span>
-            <h1>{`${market_data.current_price[vsCurrency]} ${vsCurrency}`}</h1>
+            <h1>{`${market_data.current_price[vsCurrency] || 0} ${vsCurrency}`}</h1>
           </div>
 
           <div className='coinData'>
@@ -112,7 +112,7 @@ const CoinDetails = ({
           <div className='description'>{ReactHtmlParser(description[localization])}</div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

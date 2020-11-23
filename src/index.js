@@ -9,7 +9,7 @@ import WidgetConnect from './WidgetConnect/WidgetConnect';
 import store from './redux/store';
 
 WidgetConnect();
-document.title = 'CoinExplorer';
+document.title = 'Coin explorer';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
