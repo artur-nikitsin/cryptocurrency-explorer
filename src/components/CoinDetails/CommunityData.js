@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PriceChange from './PriceChange';
 
 const CommunityData = ({
-  // eslint-disable-next-line react/prop-types
   data: {
     facebook_likes,
     reddit_accounts_active_48h,
@@ -34,7 +32,6 @@ const CommunityData = ({
 };
 
 CommunityData.propTypes = {
-  // eslint-disable-next-line react/require-default-props
   data: PropTypes.shape({
     facebook_likes: PropTypes.string,
     reddit_accounts_active_48h: PropTypes.number,
@@ -46,7 +43,7 @@ CommunityData.propTypes = {
   }),
 };
 
-PriceChange.defaultProps = {
+CommunityData.defaultProps = {
   data: {
     facebook_likes: '',
     reddit_accounts_active_48h: '',

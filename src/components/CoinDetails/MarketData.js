@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const MarketData = ({ data: { market_data, vsCurrency } }) => {
   return (
     <div className='marketData'>
@@ -8,7 +8,6 @@ const MarketData = ({ data: { market_data, vsCurrency } }) => {
         <strong> Market data:</strong>
       </p>
       <ul className='dataList'>
-        {/* eslint-disable-next-line react/prop-types */}
         <li>{`Market cap: ${market_data.market_cap[vsCurrency]} ${vsCurrency}`}</li>
         <li>{`24 low/high: ${market_data.low_24h[vsCurrency]}/${market_data.high_24h[vsCurrency]} ${vsCurrency}`}</li>
         <li>{`Fully diluted valuation: ${market_data.fully_diluted_valuation[vsCurrency]} ${vsCurrency}`}</li>
@@ -17,5 +16,33 @@ const MarketData = ({ data: { market_data, vsCurrency } }) => {
       </ul>
     </div>
   );
+};
+
+MarketData.propTypes = {
+  data: PropTypes.shape({
+    market_data: PropTypes.shape({
+      market_cap: PropTypes.objectOf(PropTypes.number),
+      high_24h: PropTypes.objectOf(PropTypes.number),
+      low_24h: PropTypes.objectOf(PropTypes.number),
+      fully_diluted_valuation: PropTypes.objectOf(PropTypes.number),
+      circulating_supply: PropTypes.number,
+      max_supply: PropTypes.number,
+    }),
+    vsCurrency: PropTypes.string,
+  }),
+};
+
+MarketData.defaultProps = {
+  data: {
+    market_data: {
+      market_cap: '',
+      high_24h: '',
+      low_24h: '',
+      fully_diluted_valuation: '',
+      circulating_supply: '',
+      max_supply: '',
+    },
+    vsCurrency: 'usd',
+  },
 };
 export default MarketData;

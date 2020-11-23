@@ -4,7 +4,6 @@ import returnColorClassName from '../../helpers/returnColorClassName';
 import getToFixedNumber from '../../helpers/getToFixedNumber';
 
 const PriceChange = ({ data: { market_data, vsCurrency } }) => {
-  console.log(market_data);
   return (
     <ul className='priceChange'>
       <li className={returnColorClassName(market_data.price_change_percentage_1h_in_currency[vsCurrency])}>
