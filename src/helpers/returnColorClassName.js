@@ -2,13 +2,14 @@ const returnColorClassName = (value) => {
   if (!value) {
     return '?';
   }
+  let valueString = value;
   if (typeof value !== 'string') {
-    value = value.toString();
+    valueString = value.toString();
   }
-  if (value.substr(0, 1) === '?') {
+  if (valueString.substr(0, 1) === '?') {
     return '';
   }
-  if (value.substr(0, 1) === '-') {
+  if (valueString.substr(0, 1) === '-') {
     return 'red';
   }
   return 'green';
