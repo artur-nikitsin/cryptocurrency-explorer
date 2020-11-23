@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 import { RightOutlined } from '@ant-design/icons';
-import { getCoinData } from '../api/getData';
+import { getCoinData } from '../../api/getData';
 import CoinChart from '../CoinChart/CoinChart';
 import Preloader from '../Preloader/Preloader';
 import './coinDetails.scss';
 import Converter from '../Converter/Converter';
+import getToFixedNumber from '../../helpers/getToFixedNumber';
+import returnColorClassName from '../../helpers/returnColorClassName';
 
 const CoinDetails = ({
   localization,
@@ -56,7 +58,7 @@ const CoinDetails = ({
 
           <div className='mainHeader'>
             <span className='nameWithLogo'>
-              <img src={image.small} alt={name} />
+              <img className='logo' src={image.small} alt={name} />
               <h1>{`${name} (${symbol.toUpperCase()})`}</h1>
             </span>
             <h1>{`${market_data.current_price[vsCurrency] || 0} ${vsCurrency}`}</h1>
@@ -85,7 +87,7 @@ const CoinDetails = ({
               </p>
               <ul className='dataList'>
                 <li>{`Block time in minutes: ${block_time_in_minutes}`}</li>
-                <li>{`Categories: ${categories[0]}`}</li>
+                <li>{`Categories: ${categories[0] || 'none'}`}</li>
                 <li>{`Coingecko rank: ${coingecko_rank}`}</li>
                 <li>{`Coingecko score: ${coingecko_score}`}</li>
                 <li>{`Community score: ${community_score}`}</li>
@@ -105,10 +107,33 @@ const CoinDetails = ({
               </ul>
             </div>
           </div>
+
           <Converter coin={symbol} vsCurrency={vsCurrency} price={market_data.current_price[vsCurrency]} />
+
+          <ul className='priceChange'>
+            <li className={returnColorClassName(market_data.price_change_percentage_1h_in_currency[vsCurrency])}>
+              {`1h: ${getToFixedNumber(market_data.price_change_percentage_1h_in_currency[vsCurrency])}`}
+            </li>
+            <li className={returnColorClassName(market_data.price_change_24h_in_currency[vsCurrency])}>
+              {`24h: ${getToFixedNumber(market_data.price_change_24h_in_currency[vsCurrency])}`}
+            </li>
+            <li className={returnColorClassName(market_data.price_change_percentage_7d_in_currency[vsCurrency])}>
+              {`7d: ${getToFixedNumber(market_data.price_change_percentage_7d_in_currency[vsCurrency])}`}
+            </li>
+            <li className={returnColorClassName(market_data.price_change_percentage_14d_in_currency[vsCurrency])}>
+              {`14d: ${getToFixedNumber(market_data.price_change_percentage_14d_in_currency[vsCurrency])}`}
+            </li>
+            <li className={returnColorClassName(market_data.price_change_percentage_30d_in_currency[vsCurrency])}>
+              {`30d: ${getToFixedNumber(market_data.price_change_percentage_30d_in_currency[vsCurrency])}`}
+            </li>
+            <li className={returnColorClassName(market_data.price_change_percentage_1y_in_currency[vsCurrency])}>
+              {`1y: ${getToFixedNumber(market_data.price_change_percentage_1y_in_currency[vsCurrency])}`}
+            </li>
+          </ul>
           <div className='coinChartWrapper'>
             <CoinChart ids={ids} />
           </div>
+
           <div className='description'>{ReactHtmlParser(description[localization])}</div>
         </div>
       )}

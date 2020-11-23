@@ -4,13 +4,13 @@ import './mainPage.scss';
 import PropTypes from 'prop-types';
 import Preloader from '../Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
-import { getDataByPage, jumpToPage } from '../../redux/actionGenerators/actionGenerators';
+import { getDataByPage, jumpToPage } from '../../redux/actions/actions';
 import CoinsTable from '../CoinsTable/CoinsTable';
 
 const MainPage = ({ loading, getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy }) => {
   useEffect(() => {
     getDataByPage({ page: activePage, vsCurrency, orderBy, resultsPerPage });
-  }, [loading, getDataByPage, resultsPerPage, activePage, vsCurrency, orderBy]);
+  }, [resultsPerPage, activePage, vsCurrency, orderBy]);
 
   return (
     <div className='tableContainer'>

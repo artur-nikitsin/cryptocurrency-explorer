@@ -7,7 +7,7 @@ import {
   SET_ORDER_BY,
   SET_RESULTS_PER_PAGE,
   SET_VC_CURRENCY,
-} from '../actions/actions';
+} from '../actions/actionTypes';
 
 const initialState = {
   loading: true,

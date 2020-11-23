@@ -10,4 +10,13 @@ describe('The function returns the abbreviated fractional part with % symbol', (
 
     expect(actual).toBe(expected);
   });
+  test('? should be returned', () => {
+    const input = '';
+
+    const actual = getToFixedNumber(input, 1);
+
+    const expected = '?';
+
+    expect(actual).toBe(expected);
+  });
 });

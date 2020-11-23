@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'antd/dist/antd.css';
 import './App.scss';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import MainPage from './components/MainPage/MainPage';
 import CoinDetails from './components/CoinDetails/CoinDetails';
+import WidgetConnect from './WidgetConnect/WidgetConnect';
 
 function App() {
+  useEffect(() => {
+    document.title = 'Coin explorer';
+    WidgetConnect();
+  }, []);
+
   return (
     <div className='App'>
       <Header />

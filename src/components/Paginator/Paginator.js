@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Pagination } from 'antd';
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { jumpToPage, getDataByPage, setResultsPerPage } from '../../redux/actionGenerators/actionGenerators';
+import { jumpToPage, getDataByPage, setResultsPerPage } from '../../redux/actions/actions';
 
 // eslint-disable-next-line no-shadow
 const Paginator = ({ coinsNumber, activePage, resultsPerPage, vsCurrency, orderBy, getDataByPage, jumpToPage }) => {
